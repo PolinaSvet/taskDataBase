@@ -1,0 +1,241 @@
+{{define "content"}}
+
+<div class="tab">
+    <button class="tablinks" onclick="openPage(event, 'Posts')">Posts</button>
+    <button class="tablinks" onclick="openPage(event, 'Authors')">Authors</button>
+</div>
+
+<div id="Posts" class="tabcontent">
+    <h2>Posts</h2>
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th style="width:10%;">Name</th>
+                <th style="width:80%;">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="active-row">
+                <td><label id="labelID">ID:</label></td>
+                <td><input id="inputID" type="number"  value="0" style="width:50%;"></td>
+            </tr>
+            <tr class="active-row">
+                <td><label id="labelAuthorID">AuthorID:</label></td>
+                <td><input id="inputAuthorID" type="number"  value="1" style="width:50%;"></td>
+            </tr>
+            <tr class="active-row">
+                <td><label id="labelTitle">Title:</label></td>
+                <td><input id="inputTitle" type="text"  value="Title_xxx_001" style="width:50%;"></td>
+            </tr>
+            <tr class="active-row">
+                <td><label id="labelContent">Content:</label></td>
+                <td><input id="inputContent" type="text"  value="Content_xxx_001" style="width:50%;"></td>
+            </tr>
+            <tr class="active-row">
+                <td><label id="labelCreatedAt">CreatedAt:</label></td>
+                <td><input id="inputCreatedAt" type="datetime-local"  value="2024-05-30T15:00" style="width:50%;"></td>
+            </tr>
+            <tr class="active-row">
+                <td><label id="labelPublishedAt">PublishedAt:</label></td>
+                <td><input id="inputPublishedAt" type="datetime-local"  value="2024-07-30T15:00" style="width:50%;"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="postDataForm">
+        <button type="button" onclick="sendDataPosts('GET')">GET (SELECT)</button>
+        <button type="button" onclick="sendDataPosts('POST')">POST (INSERT)</button>
+        <button type="button" onclick="sendDataPosts('PUT')">PUT (UPDATE)</button>
+        <button type="button" onclick="sendDataPosts('DELETE')">DELETE (DELETE)</button>
+    </div><br>
+    <div>
+        <input id="inputStatusPosts" type="text"  value="" style="width:100%;">
+    </div>
+
+    <table id="tablePosts" class="styled-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>AuthorID</th>
+                <th>AuthorName</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>CreatedAt</th>
+                <th>CreatedAtTxt</th>
+                <th>PublishedAt</th>
+                <th>PublishedAtTxt</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="Authors" class="tabcontent">
+    <h2>Authors</h2>
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th style="width:10%;">Name</th>
+                <th style="width:80%;">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="active-row">
+                <td><label id="labelIDAuthors">ID:</label></td>
+                <td><input id="inputIDAuthors" type="number"  value="0" style="width:50%;"></td>
+            </tr>
+            <tr class="active-row">
+                <td><label id="labelNameAuthors">Name:</label></td>
+                <td><input id="inputNameAuthors" type="text"  value="Name_xxx_001" style="width:50%;"></td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <div id="authorsDataForm">
+        <button type="button" onclick="sendDataAuthors('GET')">GET (SELECT)</button>
+        <button type="button" onclick="sendDataAuthors('POST')">POST (INSERT)</button>
+        <button type="button" onclick="sendDataAuthors('PUT')">PUT (UPDATE)</button>
+        <button type="button" onclick="sendDataAuthors('DELETE')">DELETE (DELETE)</button>
+    </div><br>
+    <div>
+        <input id="inputStatusAuthors" type="text"  value="" style="width:100%;">
+    </div>
+
+    <table id="tableAuthors" class="styled-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    function openPage(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+	function addToJsonIfTrue(jsonObject,method, key, value, enablevalue) {
+		if (enablevalue) {
+			jsonObject[key] = value;
+		}
+	}
+
+	function sendDataPosts(method) {
+
+		var formData = {};
+
+		addToJsonIfTrue(formData,method, 'id', parseInt(document.getElementById("inputID").value, 0), true);
+		addToJsonIfTrue(formData,method, 'author_id', parseInt(document.getElementById("inputAuthorID").value, 0), true);
+		addToJsonIfTrue(formData,method, 'title', (document.getElementById('inputTitle').value === null || document.getElementById('inputTitle').value === undefined) ? "" : document.getElementById('inputTitle').value, true);
+		addToJsonIfTrue(formData,method, 'content', (document.getElementById('inputContent').value === null || document.getElementById('inputContent').value === undefined) ? "" : document.getElementById('inputContent').value, true);
+		addToJsonIfTrue(formData,method, 'created_at', parseInt(new Date(document.getElementById('inputCreatedAt').value).getTime(),0), true);
+		addToJsonIfTrue(formData,method, 'published_at', parseInt(new Date(document.getElementById('inputPublishedAt').value).getTime(),0), true);
+
+		fetch('/posts', (method != "GET") ? 
+		{
+			method: method,
+			headers: {'Content-Type': 'application/json',},
+			body: JSON.stringify(formData),
+		}:
+		{
+			method: method,
+			headers: {'Content-Type': 'application/json',},
+		})
+		.then(response => {
+			if (response.ok) {
+				document.getElementById("inputStatusPosts").value = "Status Ok! " +method+"; "+  JSON.stringify(formData);
+			} else {
+				document.getElementById("inputStatusPosts").value = "Status Bad! " +method+"; "+ JSON.stringify(formData);
+			}
+
+            if (method == "GET") {
+                response.json().then((data) => {
+                var table = document.getElementById("tablePosts");
+                Object.entries(data).forEach(([key, value]) => {
+                    var row = table.insertRow(1);
+                    row.insertCell(0).innerHTML = value.id;
+                    row.insertCell(1).innerHTML = value.author_id;
+                    row.insertCell(2).innerHTML = value.author_name;
+                    row.insertCell(3).innerHTML = value.title;
+                    row.insertCell(4).innerHTML = value.content;
+                    row.insertCell(5).innerHTML = value.created_at;
+                    row.insertCell(6).innerHTML = value.created_at_txt;
+                    row.insertCell(7).innerHTML = value.published_at;
+                    row.insertCell(8).innerHTML = value.published_at_txt;
+                });
+            });
+            }
+            
+		})
+		.catch((error) => {
+			console.error('Error:', error);
+			alert('Error: ' + error.message);
+		});
+	}
+
+    function sendDataAuthors(method) {
+
+        var formData = {};
+
+        addToJsonIfTrue(formData,method, 'id', parseInt(document.getElementById("inputIDAuthors").value, 0), true);
+        addToJsonIfTrue(formData,method, 'name', (document.getElementById('inputNameAuthors').value === null || document.getElementById('inputNameAuthors').value === undefined) ? "" : document.getElementById('inputNameAuthors').value, true);
+       
+        fetch('/authors', (method != "GET") ? 
+        {
+            method: method,
+            headers: {'Content-Type': 'application/json',},
+            body: JSON.stringify(formData),
+        }:
+        {
+            method: method,
+            headers: {'Content-Type': 'application/json',},
+        })
+        .then(response => {
+            if (response.ok) {
+                document.getElementById("inputStatusAuthors").value = "Status Ok! " +method+"; "+  JSON.stringify(formData);
+            } else {
+                document.getElementById("inputStatusAuthors").value = "Status Bad! " +method+"; "+ JSON.stringify(formData);
+            }
+
+            if (method == "GET") {
+                response.json().then((data) => {
+                var table = document.getElementById("tableAuthors");
+                Object.entries(data).forEach(([key, value]) => {
+                    var row = table.insertRow(1);
+                    row.insertCell(0).innerHTML = value.id;
+                    row.insertCell(1).innerHTML = value.name;
+                });
+            });
+    }
+    
+})
+.catch((error) => {
+    console.error('Error:', error);
+    alert('Error: ' + error.message);
+});
+}
+</script>
+
+
+{{end}}
