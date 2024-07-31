@@ -50,7 +50,7 @@
 
 **1.Enter this command to start the program:**
 
-go run server.go -typebd pg -loadbd true
+**go run server.go -typebd pg -loadbd true**
 
 1) typebd: This parameter is responsible for selecting the database.
 - pg - PostgreSQL
@@ -61,7 +61,8 @@ go run server.go -typebd pg -loadbd true
 - true - preload the database from a file
 - false - not
 
-go run server.go
+**go run server.go**
+
 defualt value (-typebd pg -loadbd false)
 
 
