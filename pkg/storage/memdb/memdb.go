@@ -1,68 +1,153 @@
 package memdb
 
-import "GoNews/pkg/storage"
+import (
+	"GoNews/pkg/storage"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"time"
+)
 
 // Хранилище данных.
-type Store struct{}
+type Store struct {
+	AuthorsDB map[int64]storage.Author
+	PostsDB   map[int64]storage.Post
+}
 
 // Конструктор объекта хранилища.
 func New() (*Store, error) {
-	return new(Store), nil
+	store := Store{
+		AuthorsDB: map[int64]storage.Author{},
+		PostsDB:   map[int64]storage.Post{},
+	}
+	return &store, nil
 }
 
 func (s *Store) Close() {
 }
 
 // Author - автор.
-func (s *Store) Authors(jsonRequest map[string]interface{}) ([]storage.Author, error) {
-	return authors, nil
+func (s *Store) Authors() ([]storage.Author, error) {
+	var data []storage.Author
+
+	for _, v := range s.AuthorsDB {
+		data = append(data, v)
+	}
+	return data, nil
 }
 
-func (s *Store) AddAuthor(jsonRequest map[string]interface{}) (int, error) {
-	return 0, nil
+func (s *Store) AddAuthor(author storage.Author) (int64, error) {
+	if _, ok := s.AuthorsDB[author.ID]; ok {
+		return 0, fmt.Errorf("Id: %v already exist", author.ID)
+	} else {
+		s.AuthorsDB[author.ID] = author
+		return author.ID, nil
+	}
 }
-func (s *Store) UpdateAuthor(jsonRequest map[string]interface{}) (int, error) {
-	return 0, nil
+
+func (s *Store) UpdateAuthor(author storage.Author) (int64, error) {
+	if _, ok := s.AuthorsDB[author.ID]; !ok {
+		return 0, fmt.Errorf("Id: %v not exist", author.ID)
+	} else {
+		s.AuthorsDB[author.ID] = author
+		return author.ID, nil
+	}
 }
-func (s *Store) DeleteAuthor(jsonRequest map[string]interface{}) (int, error) {
-	return 0, nil
+
+func (s *Store) DeleteAuthor(author storage.Author) (int64, error) {
+	if _, ok := s.AuthorsDB[author.ID]; !ok {
+		return 0, fmt.Errorf("Id: %v not exist", author.ID)
+	} else {
+		delete(s.AuthorsDB, author.ID)
+		return author.ID, nil
+	}
+}
+
+func (s *Store) InsertInitDataFromFileAuthors(filename string) error {
+
+	file, _ := ioutil.ReadFile(filename)
+	data := []storage.Author{}
+	err := json.Unmarshal([]byte(file), &data)
+	if err != nil {
+		return err
+	}
+
+	for i := 0; i < len(data); i++ {
+		s.AuthorsDB[data[i].ID] = data[i]
+	}
+
+	return nil
 }
 
 // Post - публикация.
-func (s *Store) Posts(jsonRequest map[string]interface{}) ([]storage.Post, error) {
-	return posts, nil
+func (s *Store) Posts() ([]storage.Post, error) {
+	var data []storage.Post
+
+	for _, v := range s.PostsDB {
+
+		if _, ok := s.AuthorsDB[v.AuthorID]; ok {
+			v.AuthorName = s.AuthorsDB[v.AuthorID].Name
+		}
+
+		dt_CreatedAt := time.Unix(v.CreatedAt/1000, 0)
+		v.CreatedAtTxt = dt_CreatedAt.Format("2006-01-02 15:04:05.000")
+
+		dt_PublishedAtTxt := time.Unix(v.PublishedAt/1000, 0)
+		v.PublishedAtTxt = dt_PublishedAtTxt.Format("2006-01-02 15:04:05.000")
+
+		data = append(data, v)
+	}
+	return data, nil
 }
 
-func (s *Store) AddPost(jsonRequest map[string]interface{}) (int, error) {
-	return 0, nil
-}
-func (s *Store) UpdatePost(jsonRequest map[string]interface{}) (int, error) {
-	return 0, nil
-}
-func (s *Store) DeletePost(jsonRequest map[string]interface{}) (int, error) {
-	return 0, nil
+func (s *Store) AddPost(post storage.Post) (int64, error) {
+	if _, ok := s.PostsDB[post.ID]; ok {
+		return 0, fmt.Errorf("Id: %v already exist", post.ID)
+	} else {
+		if _, ok := s.AuthorsDB[post.AuthorID]; ok {
+			s.PostsDB[post.ID] = post
+			return post.ID, nil
+
+		} else {
+			return 0, fmt.Errorf("Author with id: %v not exist", post.AuthorID)
+		}
+	}
 }
 
-var authors = []storage.Author{
-	{
-		ID:   1,
-		Name: "Effective Go 1",
-	},
-	{
-		ID:   2,
-		Name: "Effective Go 2",
-	},
+func (s *Store) UpdatePost(post storage.Post) (int64, error) {
+	if _, ok := s.PostsDB[post.ID]; !ok {
+		return 0, fmt.Errorf("Id: %v not exist", post.ID)
+	} else {
+		if _, ok := s.AuthorsDB[post.AuthorID]; ok {
+			s.PostsDB[post.ID] = post
+			return post.ID, nil
+
+		} else {
+			return 0, fmt.Errorf("Author with id: %v not exist", post.AuthorID)
+		}
+	}
 }
 
-var posts = []storage.Post{
-	{
-		ID:      1,
-		Title:   "Effective Go",
-		Content: "Go is a new language. Although it borrows ideas from existing languages, it has unusual properties that make effective Go programs different in character from programs written in its relatives. A straightforward translation of a C++ or Java program into Go is unlikely to produce a satisfactory result—Java programs are written in Java, not Go. On the other hand, thinking about the problem from a Go perspective could produce a successful but quite different program. In other words, to write Go well, it's important to understand its properties and idioms. It's also important to know the established conventions for programming in Go, such as naming, formatting, program construction, and so on, so that programs you write will be easy for other Go programmers to understand.",
-	},
-	{
-		ID:      2,
-		Title:   "The Go Memory Model",
-		Content: "The Go memory model specifies the conditions under which reads of a variable in one goroutine can be guaranteed to observe values produced by writes to the same variable in a different goroutine.",
-	},
+func (s *Store) DeletePost(post storage.Post) (int64, error) {
+	if _, ok := s.PostsDB[post.ID]; !ok {
+		return 0, fmt.Errorf("Id: %v not exist", post.ID)
+	} else {
+		delete(s.PostsDB, post.ID)
+		return post.ID, nil
+	}
+}
+
+func (s *Store) InsertInitDataFromFilePosts(filename string) error {
+	file, _ := ioutil.ReadFile(filename)
+	data := []storage.Post{}
+	err := json.Unmarshal([]byte(file), &data)
+	if err != nil {
+		return err
+	}
+
+	for i := 0; i < len(data); i++ {
+		s.PostsDB[data[i].ID] = data[i]
+	}
+
+	return nil
 }

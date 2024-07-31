@@ -164,7 +164,7 @@
 		})
 		.then(response => {
 			if (response.ok) {
-				document.getElementById("inputStatusPosts").value = "Status Ok! " +method+"; "+  JSON.stringify(formData);
+				document.getElementById("inputStatusPosts").value = "Status Ok! " +method;
 			} else {
 				document.getElementById("inputStatusPosts").value = "Status Bad! " +method+"; "+ JSON.stringify(formData);
 			}
@@ -172,8 +172,15 @@
             if (method == "GET") {
                 response.json().then((data) => {
                 var table = document.getElementById("tablePosts");
+
+                var tableRows = table.getElementsByTagName('tr');
+                var rowCount = tableRows.length;
+                for (var x=0; x<rowCount; x++) {
+                    table.deleteRow(0);
+                }    
+
                 Object.entries(data).forEach(([key, value]) => {
-                    var row = table.insertRow(1);
+                    var row = table.insertRow(0);
                     row.insertCell(0).innerHTML = value.id;
                     row.insertCell(1).innerHTML = value.author_id;
                     row.insertCell(2).innerHTML = value.author_name;
@@ -221,8 +228,15 @@
             if (method == "GET") {
                 response.json().then((data) => {
                 var table = document.getElementById("tableAuthors");
+
+                var tableRows = table.getElementsByTagName('tr');
+                var rowCount = tableRows.length;
+                for (var x=0; x<rowCount; x++) {
+                    table.deleteRow(0);
+                }
+
                 Object.entries(data).forEach(([key, value]) => {
-                    var row = table.insertRow(1);
+                    var row = table.insertRow(0);
                     row.insertCell(0).innerHTML = value.id;
                     row.insertCell(1).innerHTML = value.name;
                 });

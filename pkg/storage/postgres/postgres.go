@@ -67,7 +67,7 @@ func (s *Store) Authors() ([]storage.Author, error) {
 	return authors, rows.Err()
 }
 
-func (s *Store) AddAuthor(author storage.Author) (int, error) {
+func (s *Store) AddAuthor(author storage.Author) (int64, error) {
 	jsonRequest, err := structToMap(author)
 	if err != nil {
 		return 0, err
@@ -84,7 +84,7 @@ func (s *Store) AddAuthor(author storage.Author) (int, error) {
 	return jsonResponse.ID, nil
 }
 
-func (s *Store) UpdateAuthor(author storage.Author) (int, error) {
+func (s *Store) UpdateAuthor(author storage.Author) (int64, error) {
 	jsonRequest, err := structToMap(author)
 	if err != nil {
 		return 0, err
@@ -101,7 +101,7 @@ func (s *Store) UpdateAuthor(author storage.Author) (int, error) {
 	return jsonResponse.ID, nil
 }
 
-func (s *Store) DeleteAuthor(author storage.Author) (int, error) {
+func (s *Store) DeleteAuthor(author storage.Author) (int64, error) {
 	jsonRequest, err := structToMap(author)
 	if err != nil {
 		return 0, err
@@ -180,7 +180,7 @@ func (s *Store) Posts() ([]storage.Post, error) {
 	return posts, rows.Err()
 }
 
-func (s *Store) AddPost(post storage.Post) (int, error) {
+func (s *Store) AddPost(post storage.Post) (int64, error) {
 
 	jsonRequest, err := structToMap(post)
 	if err != nil {
@@ -198,7 +198,7 @@ func (s *Store) AddPost(post storage.Post) (int, error) {
 	return jsonResponse.ID, nil
 }
 
-func (s *Store) UpdatePost(post storage.Post) (int, error) {
+func (s *Store) UpdatePost(post storage.Post) (int64, error) {
 
 	jsonRequest, err := structToMap(post)
 	if err != nil {
@@ -216,7 +216,7 @@ func (s *Store) UpdatePost(post storage.Post) (int, error) {
 	return jsonResponse.ID, nil
 }
 
-func (s *Store) DeletePost(post storage.Post) (int, error) {
+func (s *Store) DeletePost(post storage.Post) (int64, error) {
 
 	jsonRequest, err := structToMap(post)
 	if err != nil {

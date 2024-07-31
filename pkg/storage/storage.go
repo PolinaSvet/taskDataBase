@@ -25,21 +25,21 @@ type Post struct {
 }
 
 type SqlResponse struct {
-	ID  int    `json:"id"`
+	ID  int64  `json:"id"`
 	Err string `json:"err"`
 }
 
 // Interface задаёт контракт на работу с БД.
 type Interface interface {
 	Authors() ([]Author, error)                 // получение всех авторов
-	AddAuthor(Author) (int, error)              // создание нового автора
-	UpdateAuthor(Author) (int, error)           // обновление списка авторов
-	DeleteAuthor(Author) (int, error)           // удаление автора по ID
+	AddAuthor(Author) (int64, error)            // создание нового автора
+	UpdateAuthor(Author) (int64, error)         // обновление списка авторов
+	DeleteAuthor(Author) (int64, error)         // удаление автора по ID
 	InsertInitDataFromFileAuthors(string) error // загрузить данные из файла
 
 	Posts() ([]Post, error)                   // получение всех публикаций
-	AddPost(Post) (int, error)                // создание новой публикации
-	UpdatePost(Post) (int, error)             // обновление публикации
-	DeletePost(Post) (int, error)             // удаление публикации по ID
+	AddPost(Post) (int64, error)              // создание новой публикации
+	UpdatePost(Post) (int64, error)           // обновление публикации
+	DeletePost(Post) (int64, error)           // удаление публикации по ID
 	InsertInitDataFromFilePosts(string) error // загрузить данные из файла
 }

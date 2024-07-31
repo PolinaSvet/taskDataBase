@@ -3,6 +3,7 @@ package main
 import (
 	"GoNews/pkg/api"
 	"GoNews/pkg/storage"
+	"GoNews/pkg/storage/memdb"
 	"GoNews/pkg/storage/postgres"
 	"flag"
 	"fmt"
@@ -20,11 +21,11 @@ func main() {
 
 	// Обрабатываем флаги при запуске программы
 	// go run server.go -typebd pg -loadbd true
-	var typebd string = "pg"
-	var loadbd bool = false
+	var typebd string
+	var loadbd string
 
-	flag.StringVar(&typebd, "typebd", "pg", "DataBase: pg-PostgreSQL, mem-memdb(map), mongo-MongoDB")
-	flag.BoolVar(&loadbd, "loadbd", false, "Load data from json file: false/true")
+	flag.StringVar(&typebd, "typebd", "mem", "DataBase: pg-PostgreSQL, mem-memdb(map), mongo-MongoDB")
+	flag.StringVar(&loadbd, "loadbd", "yes", "Load data from json file: no/yes")
 	flag.Parse()
 
 	fmt.Println(typebd)
@@ -38,7 +39,7 @@ func main() {
 	}
 
 	// БД в памяти.
-	db_mem, err := postgres.New("postgres://postgres:root@localhost:5432/prgDbStorage") //err := memdb.New()
+	db_mem, err := memdb.New() //err := memdb.New()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -69,7 +70,7 @@ func main() {
 	}
 
 	// Загружаем данные в БД при старте из файлов, если есть необходимость.
-	if loadbd {
+	if loadbd == "yes" {
 		err = srv.db.InsertInitDataFromFileAuthors(storage.AuthorsDb)
 		if err != nil {
 			log.Fatal(err)
