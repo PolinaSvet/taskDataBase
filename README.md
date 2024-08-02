@@ -95,6 +95,9 @@ type Store struct {
 - **mongo:** По аналогии с пакетом "memdb" разработан пакет "mongo" для поддержки базы данных под управлением MongoDB.<br>
 ***pkg\storage\mongo\mongo.go***<br>
 
+- **redis:** По аналогии с пакетом "memdb" разработан пакет "redis" для поддержки базы данных под управлением Redis.<br>
+***pkg\storage\redis\redis.go***<br>
+
 **5) Для регистрации ошибок обращения к БД создан пакет logger.**<br>
 ***pkg\logger\logger.go***<br>
 ***cmd\server\ui\database\log.json***<br> - файл для хранения сообщений<br> 
@@ -135,7 +138,8 @@ type Store struct {
 
 - 1: package postgres: add tables authors, posts and functions for working with it
 - 2: package memdb: modified package, added hash structure for tables authors, posts
-- 3: package mongo: modified package, added hash structure for tables authors, posts
+- 3: package mongo: add tables authors, posts and functions for working with it
+- 4: package redis: add tables authors, posts and functions for working with it
 
 
 ## Usage:
@@ -148,6 +152,7 @@ type Store struct {
 - pg - PostgreSQL
 - mem - memdb(map)
 - mongo - MongoDB
+- redis - Redis
 
 2) loadbd: This parameter determines whether to preload the database from a file or not.
 - yes - preload the database from a file

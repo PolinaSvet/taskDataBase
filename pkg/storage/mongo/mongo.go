@@ -23,6 +23,10 @@ type Store struct {
 	db *mongo.Client
 }
 
+func (s *Store) GetInform() string {
+	return "MongoDB"
+}
+
 // Конструктор объекта хранилища.
 func New(constr string) (*Store, error) {
 	// подключение к СУБД MongoDB
@@ -41,15 +45,13 @@ func New(constr string) (*Store, error) {
 		db: db,
 	}
 
+	fmt.Println("Loaded bd: ", s.GetInform())
+
 	return &s, nil
 }
 
 func (s *Store) Close() {
 	s.db.Disconnect(context.Background())
-}
-
-func (s *Store) GetInform() string {
-	return "MongoDB"
 }
 
 // Author - автор.

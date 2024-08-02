@@ -15,6 +15,10 @@ type Store struct {
 	db *pgxpool.Pool
 }
 
+func (s *Store) GetInform() string {
+	return "PostgreSQL"
+}
+
 // Конструктор объекта хранилища.
 func New(constr string) (*Store, error) {
 	db, err := pgxpool.Connect(context.Background(), constr)
@@ -24,15 +28,14 @@ func New(constr string) (*Store, error) {
 	s := Store{
 		db: db,
 	}
+
+	fmt.Println("Loaded bd: ", s.GetInform())
+
 	return &s, nil
 }
 
 func (s *Store) Close() {
 	s.db.Close()
-}
-
-func (s *Store) GetInform() string {
-	return "PostgreSQL"
 }
 
 func structToMap(obj interface{}) (newMap map[string]interface{}, err error) {

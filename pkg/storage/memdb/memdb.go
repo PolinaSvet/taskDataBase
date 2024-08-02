@@ -14,20 +14,23 @@ type Store struct {
 	PostsDB   map[int64]storage.Post
 }
 
+func (s *Store) GetInform() string {
+	return "MemDB"
+}
+
 // Конструктор объекта хранилища.
 func New() (*Store, error) {
-	store := Store{
+	s := Store{
 		AuthorsDB: map[int64]storage.Author{},
 		PostsDB:   map[int64]storage.Post{},
 	}
-	return &store, nil
+
+	fmt.Println("Loaded bd: ", s.GetInform())
+
+	return &s, nil
 }
 
 func (s *Store) Close() {
-}
-
-func (s *Store) GetInform() string {
-	return "MemDB"
 }
 
 // Author - автор.

@@ -1,9 +1,8 @@
 package storage
 
 const (
-	AuthorsDb   string = "ui/database/tableAuthors.json"
-	PostsDb     string = "ui/database/tablePosts.json"
-	MongodbView string = "ui/database/mongodbView.js"
+	AuthorsDb string = "ui/database/tableAuthors.json"
+	PostsDb   string = "ui/database/tablePosts.json"
 )
 
 // Author - автор.
@@ -33,6 +32,7 @@ type SqlResponse struct {
 // Interface задаёт контракт на работу с БД.
 type Interface interface {
 	GetInform() string
+	Close()
 
 	Authors() ([]Author, error)                 // получение всех авторов
 	AddAuthor(Author) (int64, error)            // создание нового автора

@@ -13,3 +13,28 @@
 {"datetime":"2024-08-02T10:48:37.703092+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
 {"datetime":"2024-08-02T10:48:37.8790642+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
 {"datetime":"2024-08-02T10:48:38.0470061+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T15:26:43.2419797+04:00","database":"Redis","mess":"INSERT Id: authors:0 exist"}
+{"datetime":"2024-08-02T15:26:54.3139536+04:00","database":"Redis","mess":"INSERT Id: authors:4 exist"}
+{"datetime":"2024-08-02T15:27:12.9306134+04:00","database":"Redis","mess":"DELETE Id: authors:666 not exist"}
+{"datetime":"2024-08-02T15:27:16.1384434+04:00","database":"Redis","mess":"UPDATE Id: authors:666 not exist"}
+{"datetime":"2024-08-02T15:52:18.1316101+04:00","database":"Redis","mess":"INSERT AuthorID: 2000 not exist"}
+{"datetime":"2024-08-02T15:56:55.9409187+04:00","database":"Redis","mess":"INSERT AuthorID: 2000 not exist"}
+{"datetime":"2024-08-02T16:01:07.8971892+04:00","database":"Redis","mess":"INSERT Id: posts:0 exist"}
+{"datetime":"2024-08-02T16:01:42.0342827+04:00","database":"Redis","mess":"UPDATE Id: posts:787 not exist"}
+{"datetime":"2024-08-02T16:01:43.9604806+04:00","database":"Redis","mess":"DELETE Id: posts:787 not exist"}
+{"datetime":"2024-08-02T16:02:17.8425704+04:00","database":"Redis","mess":"INSERT Id: authors:0 exist"}
+{"datetime":"2024-08-02T16:02:42.2519732+04:00","database":"Redis","mess":"UPDATE Id: authors:0 not exist"}
+{"datetime":"2024-08-02T16:02:43.1539475+04:00","database":"Redis","mess":"DELETE Id: authors:0 not exist"}
+{"datetime":"2024-08-02T16:43:55.6253805+04:00","database":"Redis","mess":"INSERT Id: posts:0 exist"}
+{"datetime":"2024-08-02T16:45:32.4893732+04:00","database":"MemDB","mess":"Id: 555 already exist"}
+{"datetime":"2024-08-02T16:45:33.5303049+04:00","database":"MemDB","mess":"Id: 555 already exist"}
+{"datetime":"2024-08-02T16:45:33.9526171+04:00","database":"MemDB","mess":"Id: 555 already exist"}
+{"datetime":"2024-08-02T16:45:34.1369347+04:00","database":"MemDB","mess":"Id: 555 already exist"}
+{"datetime":"2024-08-02T16:45:34.3134399+04:00","database":"MemDB","mess":"Id: 555 already exist"}
+{"datetime":"2024-08-02T16:48:10.1282353+04:00","database":"PostgreSQL","mess":"Parameter value cannot be null. A closed task cannot be modified. функция PL/pgSQL posts_func_update(jsonb), строка 21, оператор RAISE"}
+{"datetime":"2024-08-02T16:49:00.0494157+04:00","database":"PostgreSQL","mess":"Parameter value cannot be nullфункция PL/pgSQL authors_func_update(jsonb), строка 12, оператор RAISE"}
+{"datetime":"2024-08-02T16:49:07.3241221+04:00","database":"PostgreSQL","mess":"UPDATE или DELETE в таблице \"authors\" нарушает ограничение внешнего ключа \"posts_author_id_fkey\" таблицы \"posts\"SQL-оператор: \"DELETE FROM authors WHERE id = (json_data -\u003e\u003e 'id')::BIGINT\"\nфункция PL/pgSQL authors_func_delete(jsonb), строка 8, оператор SQL-оператор"}
+{"datetime":"2024-08-02T16:49:50.9539252+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T16:49:51.9369817+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T16:49:52.1377145+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T16:49:52.3305375+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
