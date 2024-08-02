@@ -26,6 +26,10 @@ func New() (*Store, error) {
 func (s *Store) Close() {
 }
 
+func (s *Store) GetInform() string {
+	return "MemDB"
+}
+
 // Author - автор.
 func (s *Store) Authors() ([]storage.Author, error) {
 	var data []storage.Author

@@ -31,6 +31,10 @@ func (s *Store) Close() {
 	s.db.Close()
 }
 
+func (s *Store) GetInform() string {
+	return "PostgreSQL"
+}
+
 func structToMap(obj interface{}) (newMap map[string]interface{}, err error) {
 	data, err := json.Marshal(obj)
 

@@ -1,0 +1,15 @@
+{"datetime":"2024-08-02T10:48:14.3028028+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.authors index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T10:48:14.5094335+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.authors index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T10:48:14.7341233+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.authors index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T10:48:15.1511997+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.authors index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T10:48:15.3589116+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.authors index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T10:48:15.542604+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.authors index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T10:48:15.7266871+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.authors index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T10:48:15.9269272+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.authors index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T10:48:36.9666477+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T10:48:37.143235+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T10:48:37.3350364+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T10:48:37.5432438+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T10:48:37.703092+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T10:48:37.8790642+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-02T10:48:38.0470061+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}

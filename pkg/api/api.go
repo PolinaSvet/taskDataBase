@@ -1,10 +1,13 @@
 package api
 
 import (
+	"GoNews/pkg/logger"
 	"GoNews/pkg/storage"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"text/template"
+	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -63,11 +66,13 @@ func (api *API) templateHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// 1) Post
 // Получение всех публикаций.
 func (api *API) postsHandler(w http.ResponseWriter, r *http.Request) {
 
 	posts, err := api.db.Posts()
 	if err != nil {
+		logger.SetLog(time.Now(), api.db.GetInform(), fmt.Sprintf("%v", err))
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -81,7 +86,6 @@ func (api *API) postsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(bytes)
 }
 
-// 1) Post
 // Добавление публикации.
 func (api *API) addPostHandler(w http.ResponseWriter, r *http.Request) {
 
@@ -93,6 +97,7 @@ func (api *API) addPostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	_, err = api.db.AddPost(p)
 	if err != nil {
+		logger.SetLog(time.Now(), api.db.GetInform(), fmt.Sprintf("%v", err))
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -110,6 +115,7 @@ func (api *API) updatePostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	_, err = api.db.UpdatePost(p)
 	if err != nil {
+		logger.SetLog(time.Now(), api.db.GetInform(), fmt.Sprintf("%v", err))
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -127,6 +133,7 @@ func (api *API) deletePostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	_, err = api.db.DeletePost(p)
 	if err != nil {
+		logger.SetLog(time.Now(), api.db.GetInform(), fmt.Sprintf("%v", err))
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -139,6 +146,7 @@ func (api *API) authorsHandler(w http.ResponseWriter, r *http.Request) {
 
 	authors, err := api.db.Authors()
 	if err != nil {
+		logger.SetLog(time.Now(), api.db.GetInform(), fmt.Sprintf("%v", err))
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -163,6 +171,7 @@ func (api *API) addAuthorHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	_, err = api.db.AddAuthor(p)
 	if err != nil {
+		logger.SetLog(time.Now(), api.db.GetInform(), fmt.Sprintf("%v", err))
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -180,6 +189,7 @@ func (api *API) updateAuthorHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	_, err = api.db.UpdateAuthor(p)
 	if err != nil {
+		logger.SetLog(time.Now(), api.db.GetInform(), fmt.Sprintf("%v", err))
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -197,6 +207,7 @@ func (api *API) deleteAuthorHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	_, err = api.db.DeleteAuthor(p)
 	if err != nil {
+		logger.SetLog(time.Now(), api.db.GetInform(), fmt.Sprintf("%v", err))
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}

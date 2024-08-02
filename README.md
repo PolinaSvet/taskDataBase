@@ -18,13 +18,13 @@
 type Author struct {
 	ID   int64  `json:"id"`
 	Name string `json:"name"`
-}
+}<br>
 
-Authors() ([]Author, error)                 // получение всех авторов
-AddAuthor(Author) (int64, error)            // создание нового автора
-UpdateAuthor(Author) (int64, error)         // обновление списка авторов
-DeleteAuthor(Author) (int64, error)         // удаление автора по ID
-InsertInitDataFromFileAuthors(string) error // загрузить данные из файла
+Authors() ([]Author, error)                 // получение всех авторов<br>
+AddAuthor(Author) (int64, error)            // создание нового автора<br>
+UpdateAuthor(Author) (int64, error)         // обновление списка авторов<br>
+DeleteAuthor(Author) (int64, error)         // удаление автора по ID<br>
+InsertInitDataFromFileAuthors(string) error // загрузить данные из файла<br>
 
 ***Post - публикация***<br>
 type Post struct {
@@ -37,13 +37,13 @@ type Post struct {
 	CreatedAtTxt   string `json:"created_at_txt"`
 	PublishedAt    int64  `json:"published_at"`
 	PublishedAtTxt string `json:"published_at_txt"`
-}
+}<br>
 
-Posts() ([]Post, error)                   // получение всех публикаций
-AddPost(Post) (int64, error)              // создание новой публикации
-UpdatePost(Post) (int64, error)           // обновление публикации
-DeletePost(Post) (int64, error)           // удаление публикации по ID
-InsertInitDataFromFilePosts(string) error // загрузить данные из файла
+Posts() ([]Post, error)                   // получение всех публикаций<br>
+AddPost(Post) (int64, error)              // создание новой публикации<br>
+UpdatePost(Post) (int64, error)           // обновление публикации<br>
+DeletePost(Post) (int64, error)           // удаление публикации по ID<br>
+InsertInitDataFromFilePosts(string) error // загрузить данные из файла<br>
 
 Есть возможность предварительной загрузки данных из файлов:
 - Author:
@@ -51,47 +51,53 @@ InsertInitDataFromFilePosts(string) error // загрузить данные и�
 - Post:
 ***cmd\server\ui\database\tablePosts.json***<br>
 
-**2) Пакет "api" реализует характерную для REST API схему запросов для работы с БД.**
+**2) Пакет "api" реализует характерную для REST API схему запросов для работы с БД.**<br>
 ***pkg\api\api.go***<br>
 Запросы приходят на URL, соответствующий коллекции ресурсов:
 - коллекции авторов "/authors"
 - коллекции статей "/posts"
 
 Для обозначения действий над коллекцией используются методы протокола HTTP: 
-- POST для создания ресурса 
-	api.router.HandleFunc("/authors", api.addAuthorHandler).Methods(http.MethodPost, http.MethodOptions)
-	api.router.HandleFunc("/posts", api.addPostHandler).Methods(http.MethodPost, http.MethodOptions)
+- POST для создания ресурса <br>
+	api.router.HandleFunc("/authors", api.addAuthorHandler).Methods(http.MethodPost, http.MethodOptions)<br>
+	api.router.HandleFunc("/posts", api.addPostHandler).Methods(http.MethodPost, http.MethodOptions)<br>
 
-- DELETE для удаления
-	api.router.HandleFunc("/authors", api.deleteAuthorHandler).Methods(http.MethodDelete, http.MethodOptions)
-	api.router.HandleFunc("/posts", api.deletePostHandler).Methods(http.MethodDelete, http.MethodOptions)
+- DELETE для удаления<br>
+	api.router.HandleFunc("/authors", api.deleteAuthorHandler).Methods(http.MethodDelete, http.MethodOptions)<br>
+	api.router.HandleFunc("/posts", api.deletePostHandler).Methods(http.MethodDelete, http.MethodOptions)<br>
 
-- PUT для обновления
-	api.router.HandleFunc("/authors", api.updateAuthorHandler).Methods(http.MethodPut, http.MethodOptions)
-	api.router.HandleFunc("/posts", api.updatePostHandler).Methods(http.MethodPut, http.MethodOptions)
+- PUT для обновления<br>
+	api.router.HandleFunc("/authors", api.updateAuthorHandler).Methods(http.MethodPut, http.MethodOptions)<br>
+	api.router.HandleFunc("/posts", api.updatePostHandler).Methods(http.MethodPut, http.MethodOptions)<br>
 
-- GET для получения данных
-	api.router.HandleFunc("/authors", api.authorsHandler).Methods(http.MethodGet, http.MethodOptions)
-	api.router.HandleFunc("/posts", api.postsHandler).Methods(http.MethodGet, http.MethodOptions)
+- GET для получения данных<br>
+	api.router.HandleFunc("/authors", api.authorsHandler).Methods(http.MethodGet, http.MethodOptions)<br>
+	api.router.HandleFunc("/posts", api.postsHandler).Methods(http.MethodGet, http.MethodOptions)<br>
 
-**3) Для визуализации и организации REST API схемы запросов используется HTML+Javascript:**
+**3) Для визуализации и организации REST API схемы запросов используется HTML+Javascript:**<br>
 ***cmd\server\ui\html\base.html***<br>
 ***cmd\server\ui\html\routes.html***<br>
 
-**4) Сервер хранит всю информацию в базе данных.**
-Сервер предоставляет следующие реализации хранилища данных: 
+**4) Сервер хранит всю информацию в базе данных.**<br>
+Сервер предоставляет следующие реализации хранилища данных:<br> 
 
-- **postgres:** По аналогии с пакетом "memdb" разработан пакет "postgres" для поддержки базы данных под управлением СУБД PostgreSQL.
+- **postgres:** По аналогии с пакетом "memdb" разработан пакет "postgres" для поддержки базы данных под управлением СУБД PostgreSQL.<br>
 ***pkg\storage\postgres\postgres.go***<br>
 ***cmd\server\ui\database\schema.sql*** - схема БД PostgreSQL в форме SQL-запроса<br>
 
--  **memdb:** Модернизирован пакет "memdb" реализована hash-структура для хранения данных.
+-  **memdb:** Модернизирован пакет "memdb" реализована hash-структура для хранения данных.<br>
 ***pkg\storage\memdb\memdb.go***<br>
 type Store struct {
 	AuthorsDB map[int64]storage.Author
 	PostsDB   map[int64]storage.Post
-}
+}<br>
 
+- **mongo:** По аналогии с пакетом "memdb" разработан пакет "mongo" для поддержки базы данных под управлением MongoDB.<br>
+***pkg\storage\mongo\mongo.go***<br>
+
+**5) Для регистрации ошибок обращения к БД создан пакет logger.**<br>
+***pkg\logger\logger.go***<br>
+***cmd\server\ui\database\log.json***<br> - файл для хранения сообщений<br> 
 
 
 ## Требования к системе:
@@ -129,6 +135,7 @@ type Store struct {
 
 - 1: package postgres: add tables authors, posts and functions for working with it
 - 2: package memdb: modified package, added hash structure for tables authors, posts
+- 3: package mongo: modified package, added hash structure for tables authors, posts
 
 
 ## Usage:

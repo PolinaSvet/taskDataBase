@@ -220,7 +220,7 @@
         })
         .then(response => {
             if (response.ok) {
-                document.getElementById("inputStatusAuthors").value = "Status Ok! " +method+"; "+  JSON.stringify(formData);
+                document.getElementById("inputStatusAuthors").value = "Status Ok! " +method;
             } else {
                 document.getElementById("inputStatusAuthors").value = "Status Bad! " +method+"; "+ JSON.stringify(formData);
             }

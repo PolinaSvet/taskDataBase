@@ -4,7 +4,9 @@ import (
 	"GoNews/pkg/api"
 	"GoNews/pkg/storage"
 	"GoNews/pkg/storage/memdb"
+	"GoNews/pkg/storage/mongo"
 	"GoNews/pkg/storage/postgres"
+
 	"flag"
 	"fmt"
 	"log"
@@ -39,13 +41,13 @@ func main() {
 	}
 
 	// БД в памяти.
-	db_mem, err := memdb.New() //err := memdb.New()
+	db_mem, err := memdb.New()
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Реляционная БД MongoDB.
-	db_mongo, err := postgres.New("postgres://postgres:root@localhost:5432/prgDbStorage")
+	db_mongo, err := mongo.New("mongodb://localhost:27017/")
 	if err != nil {
 		log.Fatal(err)
 	}
