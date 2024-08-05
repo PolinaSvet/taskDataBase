@@ -38,3 +38,12 @@
 {"datetime":"2024-08-02T16:49:51.9369817+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
 {"datetime":"2024-08-02T16:49:52.1377145+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
 {"datetime":"2024-08-02T16:49:52.3305375+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-05T09:46:14.794832+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-05T09:46:15.1140048+04:00","database":"MongoDB","mess":"write exception: write errors: [E11000 duplicate key error collection: test.posts index: _id_ dup key: { _id: 0 }]"}
+{"datetime":"2024-08-05T09:51:18.1125773+04:00","database":"MemDB","mess":"Id: 0 already exist"}
+{"datetime":"2024-08-05T09:51:19.1613643+04:00","database":"MemDB","mess":"Id: 0 already exist"}
+{"datetime":"2024-08-05T09:51:19.3929581+04:00","database":"MemDB","mess":"Id: 0 already exist"}
+{"datetime":"2024-08-05T09:51:19.5925979+04:00","database":"MemDB","mess":"Id: 0 already exist"}
+{"datetime":"2024-08-05T09:52:03.1127848+04:00","database":"MemDB","mess":"Id: 0 not exist"}
+{"datetime":"2024-08-05T09:52:25.2013966+04:00","database":"MemDB","mess":"Author with id: 444 not exist"}
+{"datetime":"2024-08-05T09:52:37.0649454+04:00","database":"MemDB","mess":"Author with id: 2 not exist"}
