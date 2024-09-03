@@ -2,7 +2,7 @@
 # DataBases + Go
 
 <div align="center">
-	<img src="https://i.ibb.co/hFfTZh9/1.jpg">
+	<img src="screen.jpg"  width="100%" height="100%">
 </div>
 
 
